@@ -1,0 +1,140 @@
+@font-face {
+    font-family: bebas;
+    src: url('./fonts/BebasNeue-Regular.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    margin-top: 5rem;
+}
+
+.header {
+    font-size: 5rem;
+    font-weight: bold;
+    color: rgb(0, 102, 255);
+    margin-bottom: 5rem;
+    font-family: bebas;
+}
+
+.boards {
+    display: flex;
+    justify-items: center;
+    height: 30vh;
+    gap: 5rem;
+}
+
+.board1, .board2 {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    height: 50vh;
+}
+
+.board {
+    display: flex;
+    justify-content: space-around;
+    height: 25em;
+    width: auto;
+}
+
+.x_coordinates {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-self: flex-end;
+    height: 97%;
+    text-align: center;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.y_coordinates {
+    display: flex;
+    justify-content: space-around;
+    align-self: flex-end;
+    margin-right: 1em;
+    width: 88%;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.shootingBoard, .playerShips {
+    display: flex;
+    height: 24em;
+    width: 90%;
+}
+
+li{
+    list-style-type: none;
+}
+
+.shootingBoard div, .playerShips div{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.shootingBoard div button, .playerShips div button{ 
+    flex: 1;
+    background-color: white;
+    border: solid 1px rgb(0, 0, 255, 0.5);
+}
+
+.playerShips div button:hover{ 
+    background-color: aqua;
+}
+
+.shootingBoard div button:hover{
+    background-color: red;
+} 
+
+.playerShip {
+    border: solid blue;
+}
+
+p {
+    align-self: center;
+    margin-bottom: 1em;
+    color: rgb(0, 0, 255);
+    font-family: bebas;
+}
+
+.wonScreen, .loseScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 43%;
+    bottom: 40%;
+    width: 20em;
+    height: 10em;
+    border: solid 2px rgb(0, 0, 255);
+    background-color: white;
+}
+
+.wonText {
+    font-size: 4em;
+    color: blue;
+    font-family: bebas;
+}
+
+.reset {
+    width: 6rem;
+    height: 2rem;
+    background-color: white;
+}
+
+.hidden {
+    display: none;
+}
