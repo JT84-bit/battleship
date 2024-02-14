@@ -84,7 +84,7 @@ li{
     flex: 1;
 }
 
-.shootingBoard div button, .playerShips div button{ 
+.shootingBoard button, .playerShips button { 
     flex: 1;
     background-color: white;
     border: solid 1px rgb(0, 0, 255, 0.5);
@@ -97,10 +97,6 @@ li{
 .shootingBoard div button:hover{
     background-color: red;
 } 
-
-.playerShip {
-    border: solid blue;
-}
 
 p {
     align-self: center;
@@ -129,7 +125,13 @@ p {
     font-family: bebas;
 }
 
-.reset {
+.loseText {
+    font-size: 4em;
+    color: blue;
+    font-family: bebas;  
+}
+
+.reset, .resetLose {
     width: 6rem;
     height: 2rem;
     background-color: white;
@@ -138,3 +140,23 @@ p {
 .hidden {
     display: none;
 }
+
+.playerShips div .playerShip {
+    border: solid 1px blue;
+    background-color: blue;
+}
+
+.shootingBoard .buttons .hit, .playerShips .buttons .hit{
+    flex: 1;
+    color: white;
+    background-color: red;
+    border: solid 1px red;
+}
+
+.shootingBoard .buttons .sunk, .playerShips .buttons .sunk{
+    flex: 1;
+    color: white;
+    background-color: red;
+    border: solid 1px red;
+}
+
