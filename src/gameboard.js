@@ -48,6 +48,8 @@ class Gameboard {
       board.push(newRow);
     }
     this._board = board;
+    this._shipCoordinates = [];
+    this._shipsLeft = 0;
   }
 
   shipFactory(length) {
@@ -71,7 +73,12 @@ class Gameboard {
   }
 
   checkIfShip(y, x) {
-    if (this._board[y][x] !== 0 && this._board[y][x] !== 1 && this._board[y][x] !== 3 && this._board[y][x] !== 4) {
+    if (
+      this._board[y][x] !== 0
+      && this._board[y][x] !== 1
+      && this._board[y][x] !== 3
+      && this._board[y][x] !== 4
+    ) {
       return true;
     }
     return false;
@@ -81,7 +88,11 @@ class Gameboard {
     if (this.checkIfShip(y, x)) {
       return false;
     }
-    if (this._board[y][x] === 1 || this._board[y][x] === 3 || this._board[y][x] === 4) {
+    if (
+      this._board[y][x] === 1
+      || this._board[y][x] === 3
+      || this._board[y][x] === 4
+    ) {
       return true;
     }
     return false;
@@ -92,6 +103,68 @@ class Gameboard {
       return true;
     }
     return false;
+  }
+
+  randomNumber(range) {
+    let newNumber = 0;
+    newNumber = Math.floor(Math.random() * range);
+    return newNumber;
+  }
+
+  drawShips() {
+    let ship = [];
+
+    if (this._shipCoordinates.length === 0) {
+      const newY = this.randomNumber(10);
+      const newX = this.randomNumber(5);
+      ship.push(`${newY},${newX}`);
+      ship.push(`${newY},${newX + 1}`);
+      ship.push(`${newY},${newX + 2}`);
+      ship.push(`${newY},${newX + 3}`);
+      this.placeShips(0, 0, ship);
+      this._shipCoordinates.push(ship);
+      ship = [];
+    }
+
+    if (this._shipCoordinates.length < 3) {
+      const newY = this.randomNumber(6);
+      const newX = this.randomNumber(10);
+
+      if (
+        !this._board[newY][newX]
+        && !this._board[newY + 1][newX]
+        && !this._board[newY + 1][newX]
+      ) {
+        ship.push(`${newY},${newX}`);
+        ship.push(`${newY + 1},${newX}`);
+        ship.push(`${newY + 2},${newX}`);
+        this.placeShips(0, 0, ship);
+        this._shipCoordinates.push(ship);
+      }
+      this.drawShips();
+    }
+    if (this._shipCoordinates.length < 6) {
+      const newY = this.randomNumber(8);
+      const newX = this.randomNumber(10);
+      if (!this.board[newY][newX] && !this.board[newY + 1][newX]) {
+        ship.push(`${newY},${newX}`);
+        ship.push(`${newY + 1},${newX}`);
+        this.placeShips(0, 0, ship);
+        this._shipCoordinates.push(ship);
+      }
+      this.drawShips();
+    }
+
+    if (this._shipCoordinates.length < 9) {
+      const newY = this.randomNumber(9);
+      const newX = this.randomNumber(10);
+      if (!this._board[newY][newX]) {
+        ship.push(`${newY},${newX}`);
+        this.placeShips(newY, newX);
+        this._shipCoordinates.push(ship);
+      }
+      this.drawShips();
+    }
   }
 }
 

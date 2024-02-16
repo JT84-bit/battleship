@@ -19,9 +19,7 @@ class Ship {
     return false;
   }
 
-  addCoordinates(x_axis, y_axis) {
-
-  }
+  addCoordinates(x_axis, y_axis) {}
 }
 
 export default Ship;

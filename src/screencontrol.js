@@ -5,13 +5,20 @@ let computerHints = [];
 function screenController() {
   const game = gameController();
   const players = game.getPlayers();
-  const gameScreen = document.querySelector('.boards');
+  const leftCover = document.querySelector('.coverLeft');
+  const rightCover = document.querySelector('.coverRight');
+  const startScreen = document.querySelector('.startScreen');
+  const startButton = document.querySelector('.startGame');
+  const newPlacement = document.querySelector('.randomPlacement');
   const gameWon = document.querySelector('.wonScreen');
   const gameLost = document.querySelector('.loseScreen');
   const playerBoard = document.querySelector('.playerShips');
   const enemyBoard = document.querySelector('.shootingBoard');
   const resetButton = document.querySelector('.reset');
   const resetButtonLose = document.querySelector('.resetLose');
+  startButton.addEventListener('click', () => {
+    startScreen.classList.add('hidden');
+  });
   resetButton.addEventListener('click', () => {
     window.location.reload();
   });
@@ -25,16 +32,17 @@ function screenController() {
   const computerBoard = players[1].board;
 
   function computerHit(y, x) {
-    if (y >= 1 && !playersBoard.checkIfAlreadyHit(y - 1, x)) {
+    const currentBoard = players[0].board;
+    if (y >= 1 && !currentBoard.checkIfAlreadyHit(y - 1, x)) {
       computerHints.push(`${y - 1},${x}`);
     }
-    if (y <= 8 && !playersBoard.checkIfAlreadyHit(y + 1, x)) {
+    if (y <= 8 && !currentBoard.checkIfAlreadyHit(y + 1, x)) {
       computerHints.push(`${y + 1},${x}`);
     }
-    if (x >= 1 && !playersBoard.checkIfAlreadyHit(y, x - 1)) {
+    if (x >= 1 && !currentBoard.checkIfAlreadyHit(y, x - 1)) {
       computerHints.push(`${y},${x - 1}`);
     }
-    if (x <= 8 && !playersBoard.checkIfAlreadyHit(y, x + 1)) {
+    if (x <= 8 && !currentBoard.checkIfAlreadyHit(y, x + 1)) {
       computerHints.push(`${y},${x + 1}`);
     }
   }
@@ -45,26 +53,28 @@ function screenController() {
       playerBoard.removeChild(playerBoard.lastChild);
     }
 
-    for (let i = 0; i < playerArray.length; i++) {
+    const playerArrayNew = players[0].board.board;
+
+    for (let i = 0; i < playerArrayNew.length; i++) {
       const buttonRow = document.createElement('div');
       buttonRow.classList.add('buttons');
-      for (let j = 0; j < playerArray[i].length; j++) {
-        if (playerArray[i][j] === 0) {
+      for (let j = 0; j < playerArrayNew[i].length; j++) {
+        if (playerArrayNew[i][j] === 0) {
           const newButton = document.createElement('button');
           newButton.classList.add('empty');
           newButton.textContent = '';
           buttonRow.appendChild(newButton);
-        } else if (playerArray[i][j] === 1) {
+        } else if (playerArrayNew[i][j] === 1) {
           const newButton = document.createElement('button');
           newButton.classList.add('empty');
           newButton.textContent = 'X';
           buttonRow.appendChild(newButton);
-        } else if (playerArray[i][j] === 4) {
+        } else if (playerArrayNew[i][j] === 4) {
           const newButton = document.createElement('button');
           newButton.classList.add('sunk');
           newButton.textContent = 'SUNK';
           buttonRow.appendChild(newButton);
-        } else if (playerArray[i][j] === 3) {
+        } else if (playerArrayNew[i][j] === 3) {
           const newButton = document.createElement('button');
           newButton.classList.add('hit');
           newButton.textContent = 'HIT';
@@ -78,6 +88,13 @@ function screenController() {
       playerBoard.appendChild(buttonRow);
     }
   }
+
+  newPlacement.addEventListener('click', () => {
+    playersBoard.makeboard();
+    playersBoard.drawShips();
+    renderLeft();
+  });
+
   renderLeft();
   // Right Board = Shooting screen
   function renderRight() {
@@ -91,11 +108,15 @@ function screenController() {
         if (computerArray[i][j] === 0) {
           const newButton = document.createElement('button');
           newButton.classList.add('empty');
-          newButton.addEventListener('click', () => {
-            computerBoard.receiveAttack(i, j);
-            renderRight();
-            computerTurn();
-          }, { once: true });
+          newButton.addEventListener(
+            'click',
+            () => {
+              computerBoard.receiveAttack(i, j);
+              renderRight();
+              computerTurn();
+            },
+            { once: true },
+          );
           buttonRow.appendChild(newButton);
         } else if (computerArray[i][j] === 1) {
           const newButton = document.createElement('button');
@@ -115,15 +136,20 @@ function screenController() {
         } else {
           const newButton = document.createElement('button');
           newButton.classList.add('computerShip');
-          newButton.addEventListener('click', () => {
-            players[1].board.receiveAttack(i, j);
-            if (computerBoard.allShipsSunken()) {
-              gameWon.classList.remove('hidden');
-              gameScreen.classList.add('hidden');
-            }
-            renderRight();
-            computerTurn();
-          }, { once: true });
+          newButton.addEventListener(
+            'click',
+            () => {
+              players[1].board.receiveAttack(i, j);
+              if (computerBoard.allShipsSunken()) {
+                gameWon.classList.remove('hidden');
+                leftCover.classList.remove('hidden');
+                rightCover.classList.remove('hidden');
+              }
+              renderRight();
+              computerTurn();
+            },
+            { once: true },
+          );
           buttonRow.appendChild(newButton);
         }
       }
@@ -139,7 +165,6 @@ function screenController() {
       newCoordinates = newCoordinates.split(',');
       newY = Number(newCoordinates[0]);
       newX = Number(newCoordinates[1]);
-      console.log(newY, newX);
     } else {
       newY = Math.floor(Math.random() * 10);
       newX = Math.floor(Math.random() * 10);
@@ -151,12 +176,13 @@ function screenController() {
 
     if (playersBoard.receiveAttack(newY, newX) === false) {
       computerHit(newY, newX);
-    } else if ((playersBoard.receiveAttack(newY, newX))) {
+    } else if (playersBoard.receiveAttack(newY, newX)) {
       computerHints = [];
     }
     if (playersBoard.allShipsSunken()) {
       gameLost.classList.remove('hidden');
-      gameScreen.classList.add('hidden');
+      leftCover.classList.remove('hidden');
+      rightCover.classList.remove('hidden');
     }
     renderLeft();
     renderRight();
