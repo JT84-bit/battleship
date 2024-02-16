@@ -13,12 +13,11 @@ class Gameboard {
   }
 
   placeShips(y_axis, x_axis, list) {
-    console.log(list);
     if (!list) {
       const ship = this.shipFactory(1);
       this._board[y_axis][x_axis] = ship;
       this._shipsLeft += 1;
-    } else {
+    } else if (list[0].constructor === Array) {
       for (let i = 0; i < list.length; i++) {
         const ship = this.shipFactory(list[i].length);
         for (let j = 0; j < list[i].length; j++) {
@@ -29,6 +28,16 @@ class Gameboard {
         }
         this._shipsLeft += 1;
       }
+    } else {
+      this.shipFactory(list.length);
+      const ship = this.shipFactory(list.length);
+      for (let i = 0; i < list.length; i++) {
+        const coordinates = list[i].split(',');
+        const y = Number(coordinates[0]);
+        const x = Number(coordinates[1]);
+        this._board[y][x] = ship;
+      }
+      this._shipsLeft += 1;
     }
   }
 
