@@ -156,6 +156,7 @@ p {
 .shootingBoard .buttons .sunk, .playerShips .buttons .sunk{
     flex: 1;
     color: white;
+    font-size: 0.7em;
     background-color: red;
     border: solid 1px red;
 }
