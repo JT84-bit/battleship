@@ -12,6 +12,7 @@ class Gameboard {
     return this._board;
   }
 
+  // used for adding ships to board
   placeShips(y_axis, x_axis, list) {
     if (!list) {
       const ship = this.shipFactory(1);
@@ -41,6 +42,7 @@ class Gameboard {
     }
   }
 
+  // Makes initial board
   makeboard() {
     const board = [];
     for (let i = 0; i < 10; i++) {
@@ -52,11 +54,13 @@ class Gameboard {
     this._shipsLeft = 0;
   }
 
+  // Makes new ship for board
   shipFactory(length) {
     const newShip = new Ship(length);
     return newShip;
   }
 
+  // Marks attack on board, 1 for empty, 3 for hit but not sunking, 4 for sunk
   receiveAttack(y_axis, x_axis) {
     if (this._board[y_axis][x_axis] === 0) {
       this._board[y_axis][x_axis] = 1;
@@ -72,6 +76,7 @@ class Gameboard {
     }
   }
 
+  // Checks board if ship is in asked coordinates
   checkIfShip(y, x) {
     if (
       this._board[y][x] !== 0
@@ -84,6 +89,7 @@ class Gameboard {
     return false;
   }
 
+  // Checks if coordinates already hit (used for computer player)
   checkIfAlreadyHit(y, x) {
     if (this.checkIfShip(y, x)) {
       return false;
@@ -98,6 +104,7 @@ class Gameboard {
     return false;
   }
 
+  // Checks win condition
   allShipsSunken() {
     if (this._shipsLeft === 0) {
       return true;
@@ -105,12 +112,14 @@ class Gameboard {
     return false;
   }
 
+  // Makes random number for ship placement
   randomNumber(range) {
     let newNumber = 0;
     newNumber = Math.floor(Math.random() * range);
     return newNumber;
   }
 
+  // place ships for random coordinates
   drawShips() {
     let ship = [];
 

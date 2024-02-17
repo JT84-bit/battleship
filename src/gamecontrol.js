@@ -1,5 +1,6 @@
 import Gameboard from './gameboard';
 
+// Initialises game
 function gameController() {
   const playerBoard = new Gameboard();
   const computerBoard = new Gameboard();

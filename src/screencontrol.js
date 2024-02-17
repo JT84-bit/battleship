@@ -31,6 +31,7 @@ function screenController() {
   const computerArray = players[1].board.board;
   const computerBoard = players[1].board;
 
+  // If computer hits ship, stores surrounding coordinates to list for next turn
   function computerHit(y, x) {
     const currentBoard = players[0].board;
     if (y >= 1 && !currentBoard.checkIfAlreadyHit(y - 1, x)) {
@@ -157,6 +158,7 @@ function screenController() {
     }
   }
 
+  // Used for computers turn
   function computerTurn() {
     let newX;
     let newY;
@@ -176,6 +178,7 @@ function screenController() {
 
     if (playersBoard.receiveAttack(newY, newX) === false) {
       computerHit(newY, newX);
+      // If computer sunks ship "hitlist" is emptied
     } else if (playersBoard.receiveAttack(newY, newX)) {
       computerHints = [];
     }
