@@ -124,6 +124,10 @@ p {
     border: solid 2px rgb(0, 0, 255);
     background-color: white;
     z-index: 5;
+    opacity: 1;
+    transition:
+    opacity 1s,
+    display 1s allow-discrete;
 }
 
 .wonText {
@@ -178,6 +182,10 @@ p {
     border: solid 1px blue;
     position: absolute;
     z-index: 3;
+    opacity: 1;
+    transition:
+    opacity 1s,
+    display 1s allow-discrete;
 }
 
 .randomPlacement, .startGame {
@@ -194,6 +202,10 @@ p {
     border: solid 1px blue;
     position: absolute;
     z-index: 3;
+    opacity: 1;
+    transition:
+    opacity 1s,
+    display 1s allow-discrete;
 }
 
 .coverLeft {
@@ -203,8 +215,13 @@ p {
     border: solid 1px blue;
     position:absolute;
     z-index: 3;
+    opacity: 1;
+    transition:
+    opacity 1s,
+    display 1s allow-discrete;
 }
 
 .hidden {
     display: none;
+    opacity: 0;
 }
