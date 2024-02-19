@@ -206,6 +206,11 @@ p {
     overflow: auto;
 }
 
+@media (max-width: 500px) {
+    .wonScreen, .loseScreen  {
+      left: 10%;
+    }
+  }
 
 .hidden {
     display: none;
