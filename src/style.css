@@ -14,7 +14,6 @@ body {
     justify-content: flex-start;
     align-items: center;
     height: 100vh;
-    width: 100vw;
     margin-top: 5rem;
 }
 
@@ -29,8 +28,10 @@ body {
 .boards {
     display: flex;
     justify-items: center;
+    flex-wrap: wrap;
     height: 30vh;
-    gap: 5rem;
+    max-width: 70vw;
+    gap: 8rem;
 }
 
 .board1, .board2 {
@@ -38,6 +39,9 @@ body {
     flex-direction: column;
     width: 30vw;
     height: 50vh;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 1;
     z-index: 1;
 }
 
@@ -73,7 +77,7 @@ body {
 .shootingBoard, .playerShips {
     display: flex;
     height: 24em;
-    width: 90%;
+    width: 34em;
     position: relative;
     z-index: 1;
 }
@@ -116,14 +120,17 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: absolute;
+    position: fixed;
     left: 43%;
-    bottom: 40%;
+    bottom: 50%;
     width: 20em;
     height: 10em;
     border: solid 2px rgb(0, 0, 255);
     background-color: white;
     z-index: 5;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 1;
 }
 
 .wonText {
@@ -161,7 +168,7 @@ p {
 .shootingBoard .buttons .sunk, .playerShips .buttons .sunk{
     flex: 1;
     color: white;
-    font-size: 0.6em;
+    font-size: 0.5em;
     background-color: red;
     border: solid 1px red;
     z-index: inherit;
@@ -174,8 +181,9 @@ p {
     align-items: center;
     background-color: white;
     height: 24em;
-    width: 29vw;
+    min-width: 70vmin;
     border: solid 1px blue;
+    overflow: hidden;
     position: absolute;
     z-index: 3;
 }
@@ -187,25 +195,17 @@ p {
     margin-top: 1%;
 }
 
-.coverRight {
+.coverRight, .coverLeft {
     background-color: rgb(255, 255, 255, 0.5);
     height: 24em;
-    width: 29vw;
+    min-width: 70vmin;
     border: solid 1px blue;
     position: absolute;
     z-index: 3;
     opacity: 1;
+    overflow: auto;
 }
 
-.coverLeft {
-    background-color: rgb(255, 255, 255, 0.5);
-    height: 24em;
-    width: 29vw;
-    border: solid 1px blue;
-    position:absolute;
-    z-index: 3;
-    opacity: 1;
-}
 
 .hidden {
     display: none;
