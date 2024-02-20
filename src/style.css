@@ -37,8 +37,8 @@ body {
 .board1, .board2 {
     display: flex;
     flex-direction: column;
-    width: 30vw;
-    height: 50vh;
+    width: 26vw;
+    height: 26vh;
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 1;
@@ -48,36 +48,36 @@ body {
 .board {
     display: flex;
     justify-content: space-around;
-    height: 25em;
-    width: auto;
+    height: 26vh;
+    width: 26vw;
     z-index: 1;
 }
 
 .x_coordinates {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-self: flex-end;
-    height: 97%;
     text-align: center;
-    margin-bottom: 0.5em;
+    margin-top: auto;
     font-weight: bold;
+    margin-right: 1em;
 }
 
 .y_coordinates {
     display: flex;
     justify-content: space-around;
     align-self: flex-end;
-    margin-right: 1em;
-    width: 88%;
+    width: 25vw;
     font-weight: bold;
     margin-bottom: 1em;
+    margin-left: auto;
 }
 
 .shootingBoard, .playerShips {
     display: flex;
-    height: 24em;
-    width: 34em;
+    height: 25vw;
+    width: 25vw;
     position: relative;
     z-index: 1;
 }
@@ -180,8 +180,8 @@ p {
     justify-content: center;
     align-items: center;
     background-color: white;
-    height: 24em;
-    min-width: 70vmin;
+    height: 26vw;
+    width: 27vw;
     border: solid 1px blue;
     overflow: hidden;
     position: absolute;
@@ -197,8 +197,8 @@ p {
 
 .coverRight, .coverLeft {
     background-color: rgb(255, 255, 255, 0.5);
-    height: 24em;
-    min-width: 70vmin;
+    height: 27vh;
+    min-width: 27vw;
     border: solid 1px blue;
     position: absolute;
     z-index: 3;
@@ -206,12 +206,50 @@ p {
     overflow: auto;
 }
 
+.hidden {
+    display: none;
+}
+
+@media (min-width: 1900px){
+    .x_coordinates {
+        gap: 1.8vw;
+    }
+}
+
 @media (max-width: 500px) {
     .wonScreen, .loseScreen  {
       left: 10%;
     }
+
+    .y_coordinates {
+        min-width: 60vw;
+    } 
+
+    .x_coordinates {
+        gap: 2vw;
+    }
+
+    .board1, .board2 {
+        height: 40vh;
+        min-width: 66vw;
+    }
+
+    .board {
+        justify-content: normal;
+    }
+
+    .boards, .shootingBoard, .playerShips{
+        height: 30vh;
+        min-width: 60vw;
+    }
+
+    .coverRight, .coverLeft, .startScreen {
+        height: 30vh;
+        min-width: 70vw;
+    }
+
   }
 
-.hidden {
+  .y_coordinates , .x_coordinates {
     display: none;
-}
+  }
